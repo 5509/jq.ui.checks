@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.1
+ * @version      0.2
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-02 23:08
+ * 2012-04-02 23:25
  */
 (function($, window, document) {
 
@@ -88,9 +88,7 @@
         id: id,
         $check: $(check),
         $view: self._view(check),
-        $label: $('label[for=' + id + ']'),
-        state: check.checked,
-        disabled: check.disabled
+        $label: $('label[for=' + id + ']')
       };
       return self.elemMaps[id];
     },
@@ -107,7 +105,7 @@
 
         // binding events
         $check.bind({
-          'click': function(ev) {
+          'click.check': function(ev) {
             ev.stopPropagation();
             if ( disabled ) {
               return;
@@ -167,7 +165,7 @@
         $view = map.$view,
         $check = map.$check;
 
-      $view.addClass(self.conf.disabledClass);
+      $view.removeClass(self.conf.disabledClass);
       $check.prop('disabled', '');
     },
 
@@ -177,13 +175,12 @@
         $view = map.$view,
         $check = map.$check;
 
-      $view.removeClass(self.conf.disabledClass);
+      $view.addClass(self.conf.disabledClass);
       $check.prop('disabled', 'disabled');
     },
 
     _callAPI: function(api, args) {
       var self = this;
-
       if ( typeof self[api] !== 'function' ) {
         throw new Error(api + ' does not exist of ' + self.namespace + ' methods.');
       } else
@@ -225,7 +222,18 @@
       });
     },
 
-    destroy: function() {}
+    destroy: function() {
+      var self = this;
+      $.each(self.elemMaps, function(key, val) {
+        val.$view.remove();
+        val.$check.show().unbind([
+          'click.check',
+          'check:toggle',
+          'check:on', 'check:off',
+          'check:enable', 'check:disable'
+        ].join(''));
+      });
+    }
   };
 
   // Checkbox
