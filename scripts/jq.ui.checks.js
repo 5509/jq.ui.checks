@@ -40,11 +40,11 @@
 
     // names and types are based
     baseConf: {
-      view: false,
-      uiClass: 'ui_check',
-      labelClass: 'ui_check_label',
-      checkedClass: 'ui_checked',
-      disabledClass: 'ui_check_disabled'
+      view          : false,
+      uiClass       : 'ui_check',
+      labelClass    : 'ui_check_label',
+      checkedClass  : 'ui_checked',
+      disabledClass : 'ui_check_disabled'
     },
 
     init: function($elems, conf) {
@@ -52,7 +52,6 @@
 
       self.$elems = $elems;
       self.conf = $.extend({}, self.baseConf, conf);
-      console.log(self.conf);
       self.elemMaps = {};
 
       $.each($elems, function(i, elem) {
