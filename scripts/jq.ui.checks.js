@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.3
+ * @version      0.4
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-03 00:10
+ * 2012-04-03 01:15
  */
 (function($, window, document) {
 
@@ -39,7 +39,8 @@
   Checks.prototype = {
 
     // names and types are based
-    conf: {
+    baseConf: {
+      view: false,
       uiClass: 'ui_check',
       labelClass: 'ui_check_label',
       checkedClass: 'ui_checked',
@@ -50,7 +51,8 @@
       var self = this;
 
       self.$elems = $elems;
-      self.conf = $.extend(self.conf, conf);
+      self.conf = $.extend({}, self.baseConf, conf);
+      console.log(self.conf);
       self.elemMaps = {};
 
       $.each($elems, function(i, elem) {
@@ -62,7 +64,9 @@
         if ( $label ) {
           $label.addClass(self.conf.labelClass);
         }
-        $check.hide().after($view);
+        if ( self.conf.view ) {
+          $check.hide().after($view);
+        }
       });
 
       // manage events
@@ -87,8 +91,9 @@
       self.elemMaps[id] = {
         id: id,
         $check: $(check),
-        $view: self._view(check),
-        $label: $('label[for=' + id + ']')
+        $view: self.conf.view ? self._view(check) : undefined,
+        $label: $('label[for=' + id + ']'),
+        state: check.checked
       };
       return self.elemMaps[id];
     },
@@ -113,7 +118,7 @@
             $check.trigger('check:toggle');
           },
           'check:toggle': function(ev) {
-            if ( !$view.hasClass(self.conf.checkedClass) ) {
+            if ( !self.elemMaps[id].state ) {
               self._checkOn(id);
             } else {
               self._checkOff(id);
@@ -147,7 +152,8 @@
       var self = this,
         map = self.elemMaps[id];
 
-      map.$view.addClass(self.conf.checkedClass);
+      if ( self.conf.view ) map.$view.addClass(self.conf.checkedClass);
+      map.state = true;
       map.$check.prop('checked', 'checked');
     },
 
@@ -155,7 +161,8 @@
       var self = this,
         map = self.elemMaps[id];
 
-      map.$view.removeClass(self.conf.checkedClass);
+      if ( self.conf.view ) map.$view.removeClass(self.conf.checkedClass);
+      map.state = false;
       map.$check.prop('checked', '');
     },
 
@@ -165,7 +172,7 @@
         $view = map.$view,
         $check = map.$check;
 
-      $view.removeClass(self.conf.disabledClass);
+      if ( self.conf.view ) $view.removeClass(self.conf.disabledClass);
       $check.prop('disabled', '');
     },
 
@@ -175,7 +182,7 @@
         $view = map.$view,
         $check = map.$check;
 
-      $view.addClass(self.conf.disabledClass);
+      if ( self.conf.view ) $view.addClass(self.conf.disabledClass);
       $check.prop('disabled', 'disabled');
     },
 
@@ -228,7 +235,7 @@
 
       self.$elems.removeData(ns);
       $.each(self.elemMaps, function(key, val) {
-        val.$view.remove();
+        if ( self.conf.view ) val.$view.remove();
         val.$check.show().unbind([
           'click.check',
           'check:toggle',
@@ -274,7 +281,8 @@
     return this.init($elems, conf);
   };
   rp = Radio.prototype;
-  rp.conf = {
+  rp.baseConf = {
+    view: false,
     uiClass: 'ui_radio',
     labelClass: 'ui_radio_label',
     checkedClass: 'ui_checked',
@@ -287,7 +295,7 @@
     $.each(self.elemMaps, function(key, val) {
       self._checkOff(val.id);
     });
-    map.$view.addClass(self.conf.checkedClass);
+    if ( self.conf.view ) map.$view.addClass(self.conf.checkedClass);
     map.$check.prop('checked', 'checked');
   };
 

@@ -34,6 +34,7 @@
 
 <form>
 	<h2>Checkbox</h2>
+	<h3>controls</h3>
 	<p>
 		<label for="check1"><input type="checkbox" name="check" id="check1" value="1">check1</label>
 		<label for="check2"><input type="checkbox" name="check" id="check2" value="2" checked>check2</label>
@@ -49,6 +50,7 @@
 		<input type="button" id="disableall" value="Disable all">
 		<input type="button" id="destroy" value="Destroy">
 	</p>
+	<h3>with styling</h3>
 	<p>
 		<label for="check6"><input type="checkbox" name="check2" id="check6" value="6">check6</label>
 		<label for="check7"><input type="checkbox" name="check2" id="check7" value="7">check7</label>
@@ -106,7 +108,9 @@
 }());
 
 (function() {
-	var $checkbox = $('input[name="check2"]').checkbox();
+	var $checkbox = $('input[name="check2"]').checkbox({
+		view: true
+	});
 	$('#checkonall2').on('click', function() {
 		$checkbox.checkbox('checkOnAll');
 	});
@@ -128,7 +132,9 @@
 }());
 
 (function() {
-	var $radio = $('input[name="radio"]').radio();
+	var $radio = $('input[name="radio"]').radio({
+		view: true
+	});
 	$('#destroy3').on('click', function() {
 		$radio.radio('destroy');
 	});
