@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.2
+ * @version      0.3
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-02 23:25
+ * 2012-04-03 00:10
  */
 (function($, window, document) {
 
@@ -125,10 +125,10 @@
           'check:off': function() {
             self._checkOff(id);
           },
-          'check:enabled': function() {
+          'check:enable': function() {
             self._enable(id);
           },
-          'check:disabled': function() {
+          'check:disable': function() {
             self._disable(id);
           }
         });
@@ -223,7 +223,10 @@
     },
 
     destroy: function() {
-      var self = this;
+      var self = this,
+        ns = self.namespace.toLowerCase();
+
+      self.$elems.removeData(ns);
       $.each(self.elemMaps, function(key, val) {
         val.$view.remove();
         val.$check.show().unbind([
@@ -231,7 +234,7 @@
           'check:toggle',
           'check:on', 'check:off',
           'check:enable', 'check:disable'
-        ].join(''));
+        ].join(' '));
       });
     }
   };
@@ -295,6 +298,9 @@
     if (checkbox) {
       return checkbox._callAPI(a, b);
     } else {
+      if ( typeof a === 'string' ) {
+        return;
+      }
       checkbox = Checkbox(this, a);
       this.data('checkbox', checkbox);
       return this;
@@ -306,6 +312,9 @@
     if (radio) {
       return radio._callAPI(a, b);
     } else {
+      if ( typeof a === 'string' ) {
+        return;
+      }
       radio = Radio(this, a);
       this.data('radio', radio);
       return this;
