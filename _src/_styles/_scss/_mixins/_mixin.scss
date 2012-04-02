@@ -1,0 +1,50 @@
+// Select using browsers
+$use_ie     : true;
+$use_moz    : true;
+$use_webkit : true;
+$use_opera  : true;
+
+// vernder prefix
+$prefix: -webkit-, -moz-, -o-, -ms-;
+
+@mixin clearfix {
+  @if $use_ie {
+    _zoom: 1;
+  }
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+  }
+}
+
+@mixin box-shadow($property) {
+  $property: unquote($property);
+  -webkit-box-shadow: $property;
+  -moz-box-shadow: $property;
+  -o-box-shadow: $property;
+  box-shadow: $property;
+}
+
+@mixin background-size($property) {
+  $property: unquote($property);
+  -webkit-background-size: $property;
+  -moz-background-size: $property;
+  -o-background-size: $property;
+  background-size: $property;
+}
+
+@mixin border-radius($property-value, $property-type: shorthand) {
+  $property: border-radius;
+  @if $property-type != shorthand {
+      $property: border-#{$property-type}-radius;
+      // e.g. 'top-left', 'bottom-right'
+  }
+  // OUTPUT
+  -webkit-#{$property}: #{$property-value};
+  -moz-#{$property}: #{$property-value};
+  -o-#{$property}: #{$property-value};
+  #{$property}: #{$property-value};
+}
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="styles/style.css">
+	<style>
+		.ui_check {
+			border: solid #000 1px;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			background: #fff;
+		}
+		.ui_checked {
+			background: #000;
+		}
+		.ui_check_disabled {
+			border-color: #ccc;
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+
+<form>
+	<p>
+		<label for="check1"><input type="checkbox" name="check" id="check1" value="1">check1</label>
+		<label for="check2"><input type="checkbox" name="check" id="check2" value="2">check2</label>
+		<label for="check3"><input type="checkbox" name="check" id="check3" value="3">check3</label>
+		<label for="check4"><input type="checkbox" name="check" id="check4" value="4">check4</label>
+		<label for="check5"><input type="checkbox" name="check" id="check5" value="5">check5</label>
+		<label for="check6"><input type="checkbox" name="check" id="check6" value="6" disabled>check6</label>
+	</p>
+	<p>
+		<input type="button" id="checkonall" value="Check on all">
+		<input type="button" id="checkoffall" value="Check off all">
+	<p><input type="submit" value="submit"></p>
+</form>
+
+<script src="scripts/lib.min.js"></script>
+<script src="scripts/jq.ui.checks.js"></script>
+<script>
+(function($) {
+
+	var $checkbox = $('input[name="check"]').checkbox();
+	$('#checkonall').on('click', function() {
+		$checkbox.checkbox('checkOnAll');
+	});
+	$('#checkoffall').on('click', function() {
+		$checkbox.checkbox('checkOffAll');
+	});
+
+}(jQuery));
+</script>
+
+</body>
+</html>
+
+
