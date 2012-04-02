@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" href="styles/style.css">
 	<style>
-		.ui_check {
+		.ui_check,
+		.ui_radio {
 			border: solid #000 1px;
 			display: inline-block;
 			width: 10px;
@@ -15,34 +15,66 @@
 		.ui_checked {
 			background: #000;
 		}
-		.ui_check_disabled {
+		.ui_check_disabled,
+		.ui_radio_disabled {
 			border-color: #ccc;
 			background: #ccc;
+		}
+
+		.ui_radio {
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			-ms-border-radius: 5px;
+			-o-border-radius: 5px;
+			border-radius: 5px;
 		}
 	</style>
 </head>
 <body>
 
 <form>
+	<h2>Checkbox</h2>
 	<p>
 		<label for="check1"><input type="checkbox" name="check" id="check1" value="1">check1</label>
-		<label for="check2"><input type="checkbox" name="check" id="check2" value="2">check2</label>
+		<label for="check2"><input type="checkbox" name="check" id="check2" value="2" checked>check2</label>
 		<label for="check3"><input type="checkbox" name="check" id="check3" value="3">check3</label>
 		<label for="check4"><input type="checkbox" name="check" id="check4" value="4">check4</label>
 		<label for="check5"><input type="checkbox" name="check" id="check5" value="5">check5</label>
-		<label for="check6"><input type="checkbox" name="check" id="check6" value="6" disabled>check6</label>
 	</p>
 	<p>
+		<input type="button" id="togglecheckall" value="Toggle check all">
 		<input type="button" id="checkonall" value="Check on all">
 		<input type="button" id="checkoffall" value="Check off all">
+	</p>
+	<p>
+		<label for="check6"><input type="checkbox" name="check2" id="check6" value="6">check6</label>
+		<label for="check7"><input type="checkbox" name="check2" id="check7" value="7">check7</label>
+		<label for="check8"><input type="checkbox" name="check2" id="check8" value="8">check8</label>
+		<label for="check9"><input type="checkbox" name="check2" id="check9" value="9">check9</label>
+		<label for="check10"><input type="checkbox" name="check2" id="check10" value="10">check10</label>
+	</p>
+	<p>
+		<input type="button" id="togglecheckall2" value="Toggle check all">
+		<input type="button" id="checkonall2" value="Check on all">
+		<input type="button" id="checkoffall2" value="Check off all">
+	</p>
+	<h2>Radio</h2>
+	<p>
+		<label for="radio1"><input type="radio" name="radio" id="radio1" value="1">radio1</label>
+		<label for="radio2"><input type="radio" name="radio" id="radio2" value="2">radio2</label>
+		<label for="radio3"><input type="radio" name="radio" id="radio3" value="3">radio3</label>
+		<label for="radio4"><input type="radio" name="radio" id="radio4" value="4">radio4</label>
+		<label for="radio5"><input type="radio" name="radio" id="radio5" value="5">radio5</label>
+	</p>
 	<p><input type="submit" value="submit"></p>
 </form>
 
-<script src="scripts/lib.min.js"></script>
+<script src="scripts/jquery.min.js"></script>
 <script src="scripts/jq.ui.checks.js"></script>
 <script>
 (function($) {
 
+(function() {
 	var $checkbox = $('input[name="check"]').checkbox();
 	$('#checkonall').on('click', function() {
 		$checkbox.checkbox('checkOnAll');
@@ -50,11 +82,33 @@
 	$('#checkoffall').on('click', function() {
 		$checkbox.checkbox('checkOffAll');
 	});
+	$('#togglecheckall').on('click', function() {
+		$checkbox.checkbox('toggleCheckAll');
+	});
+}());
+
+(function() {
+	var $checkbox = $('input[name="check2"]').checkbox();
+	$('#checkonall2').on('click', function() {
+		$checkbox.checkbox('checkOnAll');
+	});
+	$('#checkoffall2').on('click', function() {
+		$checkbox.checkbox('checkOffAll');
+	});
+	$('#togglecheckall2').on('click', function() {
+		$checkbox.checkbox('toggleCheckAll');
+	});
+}());
+
+(function() {
+	var $radio = $('input[name="radio"]').radio();
+}());
 
 }(jQuery));
 </script>
 
-</body>
-</html>
 
 
+
+
+</body></html>
