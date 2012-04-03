@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.42
+ * @version      0.43
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-04 00:57
+ * 2012-04-04 02:43
  */
 (function($, window, document) {
 
@@ -248,9 +248,7 @@
           'click.check',
           '_check:toggle',
           '_check:on', '_check:off',
-          '_check:enable', '_check:disable',
-          'check:on', 'check:off',
-          'check:enable', 'check:disable'
+          '_check:enable', '_check:disable'
         ].join(' '));
       });
     }
@@ -292,11 +290,11 @@
   };
   rp = Radio.prototype;
   rp.baseConf = {
-    view: false,
-    uiClass: 'ui_radio',
-    labelClass: 'ui_radio_label',
-    checkedClass: 'ui_checked',
-    disabledClass: 'ui_radio_disabled'
+    view          : false,
+    uiClass       : 'ui_radio',
+    labelClass    : 'ui_radio_label',
+    checkedClass  : 'ui_checked',
+    disabledClass : 'ui_radio_disabled'
   };
   rp._checkOn = function(id) {
     var self = this,
