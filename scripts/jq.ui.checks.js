@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.4
+ * @version      0.41
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-03 01:15
+ * 2012-04-03 23:39
  */
 (function($, window, document) {
 
@@ -92,7 +92,8 @@
         $check: $(check),
         $view: self.conf.view ? self._view(check) : undefined,
         $label: $('label[for=' + id + ']'),
-        state: check.checked
+        state: check.checked,
+        disabled: check.disabled
       };
       return self.elemMaps[id];
     },
@@ -114,25 +115,25 @@
             if ( disabled ) {
               return;
             }
-            $check.trigger('check:toggle');
+            $check.trigger('_check:toggle');
           },
-          'check:toggle': function(ev) {
+          '_check:toggle': function(ev) {
             if ( !self.elemMaps[id].state ) {
               self._checkOn(id);
             } else {
               self._checkOff(id);
             }
           },
-          'check:on': function() {
+          '_check:on': function() {
             self._checkOn(id);
           },
-          'check:off': function() {
+          '_check:off': function() {
             self._checkOff(id);
           },
-          'check:enable': function() {
+          '_check:enable': function() {
             self._enable(id);
           },
-          'check:disable': function() {
+          '_check:disable': function() {
             self._disable(id);
           }
         });
@@ -149,20 +150,26 @@
 
     _checkOn: function(id) {
       var self = this,
-        map = self.elemMaps[id];
+        map = self.elemMaps[id],
+        $check = map.$check;
 
+      if ( map.disabled ) return;
       if ( self.conf.view ) map.$view.addClass(self.conf.checkedClass);
       map.state = true;
-      map.$check.prop('checked', 'checked');
+      $check.prop('checked', 'checked');
+      $check.trigger('check:on', map);
     },
 
     _checkOff: function(id) {
       var self = this,
-        map = self.elemMaps[id];
+        map = self.elemMaps[id],
+        $check = map.$check;
 
+      if ( map.disabled ) return;
       if ( self.conf.view ) map.$view.removeClass(self.conf.checkedClass);
       map.state = false;
-      map.$check.prop('checked', '');
+      $check.prop('checked', '');
+      $check.trigger('check:off', map);
     },
 
     _enable: function(id) {
@@ -172,7 +179,9 @@
         $check = map.$check;
 
       if ( self.conf.view ) $view.removeClass(self.conf.disabledClass);
+      map.disabled = false;
       $check.prop('disabled', '');
+      $check.trigger('check:enable', map);
     },
 
     _disable: function(id) {
@@ -182,7 +191,9 @@
         $check = map.$check;
 
       if ( self.conf.view ) $view.addClass(self.conf.disabledClass);
+      map.disabled = true;
       $check.prop('disabled', 'disabled');
+      $check.trigger('check:disable', map);
     },
 
     _callAPI: function(api, args) {
@@ -233,11 +244,14 @@
         ns = self.namespace.toLowerCase();
 
       self.$elems.removeData(ns);
+      self.$elems.trigger('check:destroy');
       $.each(self.elemMaps, function(key, val) {
         if ( self.conf.view ) val.$view.remove();
         val.$check.show().unbind([
           'click.check',
-          'check:toggle',
+          '_check:toggle',
+          '_check:on', '_check:off',
+          '_check:enable', '_check:disable',
           'check:on', 'check:off',
           'check:enable', 'check:disable'
         ].join(' '));
@@ -258,15 +272,15 @@
   cp = Checkbox.prototype;
   cp.toggleCheckAll = function() {
     var self = this;
-    self.$elems.trigger('check:toggle');
+    self.$elems.trigger('_check:toggle');
   };
   cp.checkOnAll = function() {
     var self = this;
-    self.$elems.trigger('check:on');
+    self.$elems.trigger('_check:on');
   };
   cp.checkOffAll = function() {
     var self = this;
-    self.$elems.trigger('check:off');
+    self.$elems.trigger('_check:off');
   };
 
   // Radio
