@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.41
+ * @version      0.42
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-03 23:39
+ * 2012-04-04 00:57
  */
 (function($, window, document) {
 
@@ -112,9 +112,6 @@
         $check.bind({
           'click.check': function(ev) {
             ev.stopPropagation();
-            if ( disabled ) {
-              return;
-            }
             $check.trigger('_check:toggle');
           },
           '_check:toggle': function(ev) {
