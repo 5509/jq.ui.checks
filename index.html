@@ -1,100 +1,139 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
-	<meta charset="UTF-8">
-	<title>jq.ui.checks</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="styles/style.css">
-	<style>
-		label {
-			margin-right: 5px;
-		}
+  <meta charset="UTF-8">
+  <title>jq.ui.checks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    label {
+      margin-right: 5px;
+    }
 
-		input[type=checkbox],
-		input[type=radio] {
-			margin-right: 3px;
-		}
+    input[type=checkbox],
+    input[type=radio] {
+      margin-right: 3px;
+    }
 
-		.ui_check,
-		.ui_radio {
-			margin-right: 3px;
-			border: solid #000 1px;
-			display: inline-block;
-			width: 10px;
-			height: 10px;
-			background: #fff;
-		}
-		.ui_checked {
-			background: #000;
-		}
-		.ui_check_disabled,
-		.ui_radio_disabled {
-			opacity: 0.3;
-			filter: alpha(opacity=30);
-		}
+    .ui_check,
+    .ui_radio {
+      margin-right: 3px;
+      border: solid #000 1px;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+    }
+    .ui_checked {
+      background: #000;
+    }
+    .ui_check_disabled,
+    .ui_radio_disabled {
+      opacity: 0.3;
+      filter: alpha(opacity=30);
+    }
 
-		.ui_radio {
-			-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			-ms-border-radius: 5px;
-			-o-border-radius: 5px;
-			border-radius: 5px;
-		}
-	</style>
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-4011945-9']);
-	  _gaq.push(['_trackPageview']);
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	</script>
+    .ui_labeled_check,
+    .ui_labeled_radio {
+      margin-right: 0;
+      border-right: none;
+      padding: 3px 5px;
+      width: auto;
+      height: auto;
+    }
+    .ui_labeled_check.ui_checked,
+    .ui_labeled_radio.ui_checked {
+      color: #fff;
+    }
+    .styled:before,
+    .styled:after {
+      content: ' ';
+      display: table;
+    }
+    .styled:after {
+      clear: both;
+    }
+    .styled {
+      *zoom: 1;
+    }
+    .styled .ui_labeled_check,
+    .styled .ui_labeled_radio {
+      float: left;
+    }
+    .styled .ui_check_label:last-child .ui_labeled_check,
+    .styled .ui_radio_label:last-child .ui_labeled_radio {
+      border-right: solid #000 1px;
+    }
+
+    .ui_radio {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px;
+    }
+    .ui_labeled_radio {
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      -ms-border-radius: 0;
+      -o-border-radius: 0;
+      border-radius: 0;
+    }
+  </style>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-4011945-9']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 </head>
 <body>
 
-<a href="https://github.com/5509/jq.ui.checks"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+<a href="https://github.com/5509/jq.ui.checks"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <div class="cont">
 
-	<header id="header">
-		<h1>jq.ui.checks</h1>
-		<p class="description">Checkboxes and radios get controls</p>
-		<p class="download"><a href="https://github.com/5509/jq.ui.checks/zipball/master">Download</a></p>
-		<nav id="nav">
-			<ul>
-				<li><a href="#overview">overview</a></li>
-				<li><a href="#usage">usage</a></li>
-				<li><a href="#sample">sample</a></li>
-				<li><a href="https://github.com/5509/jq.ui.checks/zipball/master">download</a></li>
-				<li><a href="#about">about</a></li>
-			</ul>
-		</nav>
-	</header>
+  <header id="header">
+    <h1>jq.ui.checks</h1>
+    <p class="description">Checkboxes and radios get controls</p>
+    <p class="download"><a href="https://github.com/5509/jq.ui.checks/zipball/master">Download</a></p>
+    <nav id="nav">
+      <ul>
+        <li><a href="#overview">overview</a></li>
+        <li><a href="#usage">usage</a></li>
+        <li><a href="#sample">sample</a></li>
+        <li><a href="https://github.com/5509/jq.ui.checks/zipball/master">download</a></li>
+        <li><a href="#about">about</a></li>
+      </ul>
+    </nav>
+  </header>
 
-	<section id="overview">
-		<h2>Checkboxes and radios get controls</h2>
-		<p>You can check the target or all, of course remove it, toggle the check control, enabled or disabled will be available.</p>
+  <section id="overview">
+    <h2>Checkboxes and radios get controls</h2>
+    <p>You can check the target or all, of course remove it, toggle the check control, enabled or disabled will be available.</p>
 
-		<h2>Styling them</h2>
-		<p>If you use the view option, you can also change the appearance with CSS.</p>
-	</section>
+    <h2>Styling them</h2>
+    <p>If you use the view option, you can also change the appearance with CSS.</p>
+  </section>
 
-	<section id="usage">
-		<h2>Download</h2>
-		<p>You can download the source code from Github.</p>
-		<ul>
-			<li><a href="https://github.com/5509/jq.ui.checks/zipball/master">Download jq.ui.checks.js</a></li>
-		</ul>
+  <section id="usage">
+    <h2>Download</h2>
+    <p>You can download the source code from Github.</p>
+    <ul>
+      <li><a href="https://github.com/5509/jq.ui.checks/zipball/master">Download jq.ui.checks.js</a></li>
+    </ul>
 
-		<h2>Implementation</h2>
-		<p>Reading at any point and jQuery and jq.ui.checks.js, and then run after it.</p>
-		<pre>&lt;script src=&quot;scripts/lib/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
+    <h2>Implementation</h2>
+    <p>Reading at any point and jQuery and jq.ui.checks.js, and then run after it.</p>
+    <pre>&lt;script src=&quot;scripts/lib/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;scripts/jq.ui.checks.js&quot;&gt;&lt;/script&gt;</pre>
 
-		<h2>How to use</h2>
-		<p>If you want to change the look only to the simple, do the following.</p>
-		<h3>HTML</h3>
-		<pre>&lt;label for="check1"&gt;
+    <h2>How to use</h2>
+    <p>If you want to change the look only to the simple, do the following.</p>
+    <h3>HTML</h3>
+    <pre>&lt;label for="check1"&gt;
   &lt;input type="checkbox" name="check" id="check1" value="1"&gt;
   check1
 &lt;/label&gt;
@@ -115,9 +154,9 @@
   check5
 &lt;/label&gt;</pre>
 
-		<h3>CSS</h3>
-		<p>By writing to the simple mess like this.</p>
-		<pre>.ui_check {
+    <h3>CSS</h3>
+    <p>By writing to the simple mess like this.</p>
+    <pre>.ui_check {
   margin-right: 3px;
   border: solid #000 1px;
   display: inline-block;
@@ -133,150 +172,159 @@
   filter: alpha(opacity=30);
 }</pre>
 
-		<h3>JavaScript</h3>
-		<pre>$('input[name="check"]').checkbox({
+    <h3>JavaScript</h3>
+    <pre>$('input[name="check"]').checkbox({
   view: true
 });</pre>
 
-		<p>If you want to apply to radio buttons, use the radio method instead of checkbox.</p>
-		<pre>$('input[name="radio"]').radio({
+    <p>If you want to apply to radio buttons, use the radio method instead of checkbox.</p>
+    <pre>$('input[name="radio"]').radio({
   view: true
 });</pre>
 
-		<h2>Options</h2>
-		<p>You can change looks if you specify the option when you run and class names. For descriptions of the options available, please refer to the following table.</p>
-		<table summary="Options">
-			<thead>
-				<tr>
-					<th>Key</th>
-					<td>Commentary (Contents of the () is the default value, and left hand is for checkbox, right hand is for radio)</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th>view</th>
-					<td>(false) If you turn to true this option, span element (this is view) that contains the class specified in the uiClass element is appended to the input, the input element will be invisible element.</td>
-				<tr>
-					<th>uiClass</th>
-					<td>(ui_check | ui_radio) Class to add to the element to be added in order to change the look of the element input. You can apply a style to use this class.</td>
-				</tr>
-				<tr>
-					<th>labelClass</th>
-					<td>(ui_check_label | ui_radio_label) Class to add to the label element associated with their element input.</td>
-				</tr>
-				<tr>
-					<th>checkedClass</th>
-					<td>(ui_checked) Class to be added to the view when the input element has become checked.</td>
-				</tr>
-				<tr>
-					<th>disabledClass</th>
-					<td>(ui_check_disabled | ui_radio_disabled) Class to be added to the view when the input element has become disabled.</td>
-				</tr>
-			</tbody>
-		</table>
-		<h4>Using this</h4>
-		<pre>$(input).checkbox({
+    <h2>Options</h2>
+    <p>You can change looks if you specify the option when you run and class names. For descriptions of the options available, please refer to the following table.</p>
+    <table summary="Options">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <td>Commentary (Contents of the () is the default value, and left hand is for checkbox, right hand is for radio)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>view</th>
+          <td>(false) If you turn to true this option, span element (this is view) that contains the class specified in the uiClass element is appended to the input, the input element will be invisible element.</td>
+        </tr>
+        <tr>
+          <th>label</th>
+          <td>(false) If you turn to true this option, data-checkbox-label attribute is to be a label of replaced checkbox/radio.</td>
+        </tr>
+        <tr>
+          <th>hideNextSibs</th>
+          <td>(false) If you turn to true this option, next siblings of checkbox/radio is to be hidden.</td>
+        </tr>
+        <tr>
+          <th>uiClass</th>
+          <td>(ui_check | ui_radio) Class to add to the element to be added in order to change the look of the element input. You can apply a style to use this class.</td>
+        </tr>
+        <tr>
+          <th>labelClass</th>
+          <td>(ui_check_label | ui_radio_label) Class to add to the label element associated with their element input.</td>
+        </tr>
+        <tr>
+          <th>checkedClass</th>
+          <td>(ui_checked) Class to be added to the view when the input element has become checked.</td>
+        </tr>
+        <tr>
+          <th>disabledClass</th>
+          <td>(ui_check_disabled | ui_radio_disabled) Class to be added to the view when the input element has become disabled.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Using this</h4>
+    <pre>$(input).checkbox({
   view: true
 });</pre>
 
-		<h2>APIs</h2>
-		<h3>Common</h3>
-		<table summary="APIs - common">
-			<thead>
-				<tr>
-					<th>Key</th>
-					<td>Commentary (Contents of the () is arguments)</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th>checkOn</th>
-					<td>(id) With the checked attribute to the input element you specified in the id, if there is a view is put a class that is specified by the checkedClass to view.</td>
-				<tr>
-					<th>checkOff</th>
-					<td>(id) Remove the checked attribute from the input element you specified id, if there is a view removes a class that is specified by the checkedClass from view.</td>
-				</tr>
-				<tr>
-					<th>enable</th>
-					<td>(id) Disabled attribute is removed from the input element that you have specified in the id, if there is a view removes the class that is specified by the disabledClass from view.</td>
-				</tr>
-				<tr>
-					<th>enableAll</th>
-					<td>Remove the disabled attribute from the input element has been the target of all.</td>
-				</tr>
-				<tr>
-					<th>disable</th>
-					<td>(id) With the disabled attribute to the input element that you have specified in the id, if there is a view is put a class that is specified by the disabledClass to view.</td>
-				</tr>
-				<tr>
-					<th>enableAll</th>
-					<td>Give the disabled attribute to all input elements that are covered.</td>
-				</tr>
-				<tr>
-					<th>destroy</th>
-					<td>Get rid of all the events related to checkbox, and radio methods. If there is a view also removes the view.</td>
-				</tr>
-			</tbody>
-		</table>
-		<h4>Using this</h4>
-		<pre>var $checkbox = $(input).checkbox();
+    <h2>APIs</h2>
+    <h3>Common</h3>
+    <table summary="APIs - common">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <td>Commentary (Contents of the () is arguments)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>checkOn</th>
+          <td>(id) With the checked attribute to the input element you specified in the id, if there is a view is put a class that is specified by the checkedClass to view.</td>
+        <tr>
+          <th>checkOff</th>
+          <td>(id) Remove the checked attribute from the input element you specified id, if there is a view removes a class that is specified by the checkedClass from view.</td>
+        </tr>
+        <tr>
+          <th>enable</th>
+          <td>(id) Disabled attribute is removed from the input element that you have specified in the id, if there is a view removes the class that is specified by the disabledClass from view.</td>
+        </tr>
+        <tr>
+          <th>enableAll</th>
+          <td>Remove the disabled attribute from the input element has been the target of all.</td>
+        </tr>
+        <tr>
+          <th>disable</th>
+          <td>(id) With the disabled attribute to the input element that you have specified in the id, if there is a view is put a class that is specified by the disabledClass to view.</td>
+        </tr>
+        <tr>
+          <th>enableAll</th>
+          <td>Give the disabled attribute to all input elements that are covered.</td>
+        </tr>
+        <tr>
+          <th>destroy</th>
+          <td>Get rid of all the events related to checkbox, and radio methods. If there is a view also removes the view.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Using this</h4>
+    <pre>var $checkbox = $(input).checkbox();
 $checkbox.checkbox('enableAll');</pre>
 
-		<h3>$.fn.checkbox</h3>
-		<p>APIs are only available in the following method check.</p>
-		<table summary="APIs - checkbox()">
-			<thead>
-				<tr>
-					<th>Key</th>
-					<td>Commentary</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th>toggleCheckAll</th>
-					<td>To toggle the checked attribute of input elements are specified.</td>
-				<tr>
-					<th>checkOnAll</th>
-					<td>Give a checked attribute to input elements are specified.</td>
-				</tr>
-				<tr>
-					<th>checkOffAll</th>
-					<td>Remove a checked attribute from input elements are specified.</td>
-				</tr>
-			</tbody>
-		</table>
-		<h4>Using this</h4>
-		<pre>var $checkbox = $(input).checkbox();
+    <h3>$.fn.checkbox</h3>
+    <p>APIs are only available in the following method check.</p>
+    <table summary="APIs - checkbox()">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <td>Commentary</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>toggleCheckAll</th>
+          <td>To toggle the checked attribute of input elements are specified.</td>
+        <tr>
+          <th>checkOnAll</th>
+          <td>Give a checked attribute to input elements are specified.</td>
+        </tr>
+        <tr>
+          <th>checkOffAll</th>
+          <td>Remove a checked attribute from input elements are specified.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Using this</h4>
+    <pre>var $checkbox = $(input).checkbox();
 $checkbox.checkbox('toggleCheckAll');</pre>
 
-		<h2>Events</h2>
-		<table summary="Events">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<td>Commentary (Contents of the () is data)</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th>check:on</th>
-					<td>(data) Fire when a checked attribute is added to a input element.</td>
-				<tr>
-					<th>check:off</th>
-					<td>(data) Fire when removing a checked attribute from a input element.</td>
-				</tr>
-				<tr>
-					<th>check:enable</th>
-					<td>(data) Fire when a input element is enabled.</td>
-				</tr>
-				<tr>
-					<th>check:disable</th>
-					<td>(data) Fire when a input element is disabled.</td>
-				</tr>
-			</tbody>
-		</table>
-		<h4>data is a object has relational datas.</h4>
-		<pre>$(input).bind({
+    <h2>Events</h2>
+    <table summary="Events">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <td>Commentary (Contents of the () is data)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>check:on</th>
+          <td>(data) Fire when a checked attribute is added to a input element.</td>
+        <tr>
+          <th>check:off</th>
+          <td>(data) Fire when removing a checked attribute from a input element.</td>
+        </tr>
+        <tr>
+          <th>check:enable</th>
+          <td>(data) Fire when a input element is enabled.</td>
+        </tr>
+        <tr>
+          <th>check:disable</th>
+          <td>(data) Fire when a input element is disabled.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>data is a object has relational datas.</h4>
+    <pre>$(input).bind({
   'check:on': function(ev, data) {
     console.log(data);
   }
@@ -291,28 +339,28 @@ data: {
   id: input.id,
   state: boolean
 }</pre>
-	</section>
+  </section>
 
-	<section id="sample">
-		<h2>Checkbox</h2>
-		<h3>controls</h3>
-		<p>
-			<label for="check1"><input type="checkbox" name="check" id="check1" value="1">check1</label>
-			<label for="check2"><input type="checkbox" name="check" id="check2" value="2" checked>check2</label>
-			<label for="check3"><input type="checkbox" name="check" id="check3" value="3">check3</label>
-			<label for="check4"><input type="checkbox" name="check" id="check4" value="4">check4</label>
-			<label for="check5"><input type="checkbox" name="check" id="check5" value="5">check5</label>
-		</p>
-		<p>
-			<input type="button" id="togglecheckall" value="Toggle check all">
-			<input type="button" id="checkonall" value="Check on all">
-			<input type="button" id="checkoffall" value="Check off all">
-			<input type="button" id="enableall" value="Enable all">
-			<input type="button" id="disableall" value="Disable all">
-			<input type="button" id="destroy" value="Destroy">
-		</p>
-		<h3>source code</h3>
-		<pre>var $checkbox = $('input[name="check"]').checkbox();
+  <section id="sample">
+    <h2>Checkbox</h2>
+    <h3>controls</h3>
+    <p>
+      <label for="check1"><input type="checkbox" name="check" id="check1" value="1">check1</label>
+      <label for="check2"><input type="checkbox" name="check" id="check2" value="2" checked>check2</label>
+      <label for="check3"><input type="checkbox" name="check" id="check3" value="3">check3</label>
+      <label for="check4"><input type="checkbox" name="check" id="check4" value="4">check4</label>
+      <label for="check5"><input type="checkbox" name="check" id="check5" value="5">check5</label>
+    </p>
+    <p>
+      <input type="button" id="togglecheckall" value="Toggle check all">
+      <input type="button" id="checkonall" value="Check on all">
+      <input type="button" id="checkoffall" value="Check off all">
+      <input type="button" id="enableall" value="Enable all">
+      <input type="button" id="disableall" value="Disable all">
+      <input type="button" id="destroy" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $checkbox = $('input[name="check"]').checkbox();
 
 $('#checkonall').on('click', function() {
   $checkbox.checkbox('checkOnAll');
@@ -348,97 +396,144 @@ $checkbox.bind({
   }
 });</pre>
 
-		<h3>with styling</h3>
-		<p>
-			<label for="check6"><input type="checkbox" name="check2" id="check6" value="6">check6</label>
-			<label for="check7"><input type="checkbox" name="check2" id="check7" value="7" disabled>check7</label>
-			<label for="check8"><input type="checkbox" name="check2" id="check8" value="8">check8</label>
-			<label for="check9"><input type="checkbox" name="check2" id="check9" value="9">check9</label>
-			<label for="check10"><input type="checkbox" name="check2" id="check10" value="10">check10</label>
-		</p>
-		<p>
-			<input type="button" id="togglecheckall2" value="Toggle check all">
-			<input type="button" id="checkonall2" value="Check on all">
-			<input type="button" id="checkoffall2" value="Check off all">
-			<input type="button" id="enableall2" value="Enable all">
-			<input type="button" id="disableall2" value="Disable all">
-			<input type="button" id="destroy2" value="Destroy">
-		</p>
-		<h3>source code</h3>
-		<pre>var $checkbox = $('input[name="check"]').checkbox({
+    <h3>with styling</h3>
+    <p>
+      <label for="check6"><input type="checkbox" name="check2" id="check6" value="6">check6</label>
+      <label for="check7"><input type="checkbox" name="check2" id="check7" value="7" disabled>check7</label>
+      <label for="check8"><input type="checkbox" name="check2" id="check8" value="8">check8</label>
+      <label for="check9"><input type="checkbox" name="check2" id="check9" value="9">check9</label>
+      <label for="check10"><input type="checkbox" name="check2" id="check10" value="10">check10</label>
+    </p>
+    <p>
+      <input type="button" id="togglecheckall2" value="Toggle check all">
+      <input type="button" id="checkonall2" value="Check on all">
+      <input type="button" id="checkoffall2" value="Check off all">
+      <input type="button" id="enableall2" value="Enable all">
+      <input type="button" id="disableall2" value="Disable all">
+      <input type="button" id="destroy2" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $checkbox = $('input[name="check"]').checkbox({
   view: true
 });
 
 // ...</pre>
 
-		<h2>Radio</h2>
-		<h3>controls</h3>
-		<p>
-			<label for="radio1"><input type="radio" name="radio" id="radio1" value="1">radio1</label>
-			<label for="radio2"><input type="radio" name="radio" id="radio2" value="2">radio2</label>
-			<label for="radio3"><input type="radio" name="radio" id="radio3" value="3">radio3</label>
-			<label for="radio4"><input type="radio" name="radio" id="radio4" value="4">radio4</label>
-			<label for="radio5"><input type="radio" name="radio" id="radio5" value="5">radio5</label>
-		</p>
-		<p>
-			<input type="button" id="enableall3" value="Enable all">
-			<input type="button" id="disableall3" value="Disable all">
-			<input type="button" id="destroy3" value="Destroy">
-		</p>
-		<h3>source code</h3>
-		<pre>var $radio = $('input[name="radio"]').radio();
+    <h3>styled buttons</h3>
+    <p class="styled">
+      <label for="check11"><input type="checkbox" name="check3" id="check11" data-checkbox-label="A"><span>A</span></label>
+      <label for="check12"><input type="checkbox" name="check3" id="check12" data-checkbox-label="B"><span>B</span></label>
+      <label for="check13"><input type="checkbox" name="check3" id="check13" data-checkbox-label="C"><span>C</span></label>
+      <label for="check14"><input type="checkbox" name="check3" id="check14" data-checkbox-label="D"><span>D</span></label>
+      <label for="check15"><input type="checkbox" name="check3" id="check15" data-checkbox-label="E"><span>E</span></label>
+    </p>
+    <p>
+      <input type="button" id="togglecheckall3" value="Toggle check all">
+      <input type="button" id="checkonall3" value="Check on all">
+      <input type="button" id="checkoffall3" value="Check off all">
+      <input type="button" id="enableall3" value="Enable all">
+      <input type="button" id="disableall3" value="Disable all">
+      <input type="button" id="destroy3" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $checkbox = $('input[name="check"]').checkbox({
+      view: true,
+      lable: true,
+      hideNextSibs: true
+    });
+
+    // ...</pre>
+
+    <h2>Radio</h2>
+    <h3>controls</h3>
+    <p>
+      <label for="radio1"><input type="radio" name="radio" id="radio1" value="1">radio1</label>
+      <label for="radio2"><input type="radio" name="radio" id="radio2" value="2">radio2</label>
+      <label for="radio3"><input type="radio" name="radio" id="radio3" value="3">radio3</label>
+      <label for="radio4"><input type="radio" name="radio" id="radio4" value="4">radio4</label>
+      <label for="radio5"><input type="radio" name="radio" id="radio5" value="5">radio5</label>
+    </p>
+    <p>
+      <input type="button" id="enableall4" value="Enable all">
+      <input type="button" id="disableall4" value="Disable all">
+      <input type="button" id="destroy4" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $radio = $('input[name="radio"]').radio();
 
 // ...</pre>
 
-		<h3>with styling</h3>
-		<p>
-			<label for="radio6"><input type="radio" name="radio2" id="radio6" value="6">radio6</label>
-			<label for="radio7"><input type="radio" name="radio2" id="radio7" value="7">radio7</label>
-			<label for="radio8"><input type="radio" name="radio2" id="radio8" value="8">radio8</label>
-			<label for="radio9"><input type="radio" name="radio2" id="radio9" value="9">radio9</label>
-			<label for="radio10"><input type="radio" name="radio2" id="radio10" value="10">radio10</label>
-		</p>
-		<p>
-			<input type="button" id="enableall4" value="Enable all">
-			<input type="button" id="disableall4" value="Disable all">
-			<input type="button" id="destroy4" value="Destroy">
-		</p>
-		<h3>source code</h3>
-		<pre>var $radio = $('input[name="radio"]').radio({
+    <h3>with styling</h3>
+    <p>
+      <label for="radio6"><input type="radio" name="radio2" id="radio6" value="6">radio6</label>
+      <label for="radio7"><input type="radio" name="radio2" id="radio7" value="7">radio7</label>
+      <label for="radio8"><input type="radio" name="radio2" id="radio8" value="8">radio8</label>
+      <label for="radio9"><input type="radio" name="radio2" id="radio9" value="9">radio9</label>
+      <label for="radio10"><input type="radio" name="radio2" id="radio10" value="10">radio10</label>
+    </p>
+    <p>
+      <input type="button" id="enableall5" value="Enable all">
+      <input type="button" id="disableall5" value="Disable all">
+      <input type="button" id="destroy5" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $radio = $('input[name="radio"]').radio({
   view: true
 });
 
 // ...</pre>
-	</section>
 
-	<section id="about">
-		<h2>Capable browsers</h2>
-		<ul>
-			<li>IE6+</li>
-			<li>and modern browsers</li>
-			<li>Mobile Safari</li>
-		</ul>
+    <h3>styled buttons</h3>
+    <p class="styled">
+      <label for="radio11"><input type="radio" name="radio3" id="radio11" value="A" data-checkbox-label="A"><span>A</span></label>
+      <label for="radio12"><input type="radio" name="radio3" id="radio12" value="B" data-checkbox-label="B"><span>B</span></label>
+      <label for="radio13"><input type="radio" name="radio3" id="radio13" value="C" data-checkbox-label="C"><span>C</span></label>
+      <label for="radio14"><input type="radio" name="radio3" id="radio14" value="D" data-checkbox-label="D"><span>D</span></label>
+      <label for="radio15"><input type="radio" name="radio3" id="radio15" value="E" data-checkbox-label="E"><span>E</span></label>
+    </p>
+    <p>
+      <input type="button" id="enableall6" value="Enable all">
+      <input type="button" id="disableall6" value="Disable all">
+      <input type="button" id="destroy6" value="Destroy">
+    </p>
+    <h3>source code</h3>
+    <pre>var $radio = $('input[name="radio"]').radio({
+  view: true,
+  label: true,
+  hideNextSibs: true
+});
 
-		<h2>License</h2>
-		<p><a href="http://5509.mit-license.org/">The MIT License</a></p>
+// ...</pre>
+  </section>
 
-		<h2>If you've found a bug, etc.</h2>
-		<p>Please pull request to fork a github repository, if possible. I might be able to correspond to the time when there is a difficult case and get written on issues, someone may be able to support.</p>
-		<p>Regards use at your own risk!</p>
+  <section id="about">
+    <h2>Capable browsers</h2>
+    <ul>
+      <li>IE6+</li>
+      <li>and modern browsers</li>
+      <li>Mobile Safari</li>
+    </ul>
 
-		<h2>Author</h2>
-		<p>Kazunori Tokuda - <a href="http://5509.me/">http://5509.me</a>, <a href="http://twitter.com/5509">@5509</a></p>
+    <h2>License</h2>
+    <p><a href="http://5509.mit-license.org/">The MIT License</a></p>
 
-		<div class="sb">
-			<!-- iine -->
-			<div class="fb-like" data-href="http://5509.github.com/jq.ui.checks/" data-send="true" data-width="450" data-show-faces="true"></div>
+    <h2>If you've found a bug, etc.</h2>
+    <p>Please pull request to fork a github repository, if possible. I might be able to correspond to the time when there is a difficult case and get written on issues, someone may be able to support.</p>
+    <p>Regards use at your own risk!</p>
 
-			<!-- plusone -->
-			<g:plusone size="medium" annotation="inline" width="600" href="http://5509.github.com/jq.ui.checks/"></g:plusone>
-		</div>
-	</section>
+    <h2>Author</h2>
+    <p>Kazunori Tokuda - <a href="http://5509.me/">http://5509.hatenablog.com</a>, <a href="http://twitter.com/5509">@5509</a></p>
 
-	<p class="thx">Thanks</p>
+    <div class="sb">
+      <!-- iine -->
+      <div class="fb-like" data-href="http://5509.github.io/jq.ui.checks/" data-send="true" data-width="450" data-show-faces="true"></div>
+
+      <!-- plusone -->
+      <g:plusone size="medium" annotation="inline" width="600" href="http://5509.github.io/jq.ui.checks/"></g:plusone>
+    </div>
+  </section>
+
+  <p class="thx">Thanks</p>
 
 </div>
 
@@ -464,11 +559,11 @@ $checkbox.bind({
 <script src="scripts/lib/fixscroll.js"></script>
 <script>
 (function() {
-	$('pre').each(function() {
-		hljs.highlightBlock(this);
-	});
+  $('pre').each(function() {
+    hljs.highlightBlock(this);
+  });
 
-	FixScroll('nav');
+  FixScroll('nav');
 }());
 </script>
 <script src="scripts/jq.ui.checks.js"></script>
@@ -476,92 +571,135 @@ $checkbox.bind({
 (function($) {
 
 (function() {
-	var $checkbox = $('input[name="check"]').checkbox();
-	$('#checkonall').on('click', function() {
-		$checkbox.checkbox('checkOnAll');
-	});
-	$('#checkoffall').on('click', function() {
-		$checkbox.checkbox('checkOffAll');
-	});
-	$('#togglecheckall').on('click', function() {
-		$checkbox.checkbox('toggleCheckAll');
-	});
-	$('#enableall').on('click', function() {
-		$checkbox.checkbox('enableAll');
-	});
-	$('#disableall').on('click', function() {
-		$checkbox.checkbox('disableAll');
-	});
-	$('#destroy').on('click', function() {
-		$checkbox.checkbox('destroy');
-	});
+  var $checkbox = $('input[name="check"]').checkbox();
+  $('#checkonall').on('click', function() {
+    $checkbox.checkbox('checkOnAll');
+  });
+  $('#checkoffall').on('click', function() {
+    $checkbox.checkbox('checkOffAll');
+  });
+  $('#togglecheckall').on('click', function() {
+    $checkbox.checkbox('toggleCheckAll');
+  });
+  $('#enableall').on('click', function() {
+    $checkbox.checkbox('enableAll');
+  });
+  $('#disableall').on('click', function() {
+    $checkbox.checkbox('disableAll');
+  });
+  $('#destroy').on('click', function() {
+    $checkbox.checkbox('destroy');
+  });
 
-	$checkbox.bind({
-		'check:on': function(ev, data) {
-			console.log('check:on', data);
-		},
-		'check:off': function(ev, data) {
-			console.log('check:off', data);
-		},
-		'check:enable': function(ev, data) {
-			console.log('check:enable', data);
-		},
-		'check:disable': function(ev, data) {
-			console.log('check:disable', data);
-		}
-	});
+  $checkbox.bind({
+    'check:on': function(ev, data) {
+      console.log('check:on', data);
+    },
+    'check:off': function(ev, data) {
+      console.log('check:off', data);
+    },
+    'check:enable': function(ev, data) {
+      console.log('check:enable', data);
+    },
+    'check:disable': function(ev, data) {
+      console.log('check:disable', data);
+    }
+  });
 }());
 
 (function() {
-	var $checkbox = $('input[name="check2"]').checkbox({
-		view: true
-	});
-	$('#checkonall2').on('click', function() {
-		$checkbox.checkbox('checkOnAll');
-	});
-	$('#checkoffall2').on('click', function() {
-		$checkbox.checkbox('checkOffAll');
-	});
-	$('#togglecheckall2').on('click', function() {
-		$checkbox.checkbox('toggleCheckAll');
-	});
-	$('#enableall2').on('click', function() {
-		$checkbox.checkbox('enableAll');
-	});
-	$('#disableall2').on('click', function() {
-		$checkbox.checkbox('disableAll');
-	});
-	$('#destroy2').on('click', function() {
-		$checkbox.checkbox('destroy');
-	});
+  var $checkbox = $('input[name="check2"]').checkbox({
+    view: true
+  });
+  $('#checkonall2').on('click', function() {
+    $checkbox.checkbox('checkOnAll');
+  });
+  $('#checkoffall2').on('click', function() {
+    $checkbox.checkbox('checkOffAll');
+  });
+  $('#togglecheckall2').on('click', function() {
+    $checkbox.checkbox('toggleCheckAll');
+  });
+  $('#enableall2').on('click', function() {
+    $checkbox.checkbox('enableAll');
+  });
+  $('#disableall2').on('click', function() {
+    $checkbox.checkbox('disableAll');
+  });
+  $('#destroy2').on('click', function() {
+    $checkbox.checkbox('destroy');
+  });
 }());
 
 (function() {
-	var $radio = $('input[name="radio"]').radio();
-	$('#enableall3').on('click', function() {
-		$radio.radio('enableAll');
-	});
-	$('#disableall3').on('click', function() {
-		$radio.radio('disableAll');
-	});
-	$('#destroy3').on('click', function() {
-		$radio.radio('destroy');
-	});
+  var $checkbox = $('input[name="check3"]').checkbox({
+    view: true,
+    label: true,
+    hideNextSibs: true
+  });
+  $('#checkonall3').on('click', function() {
+    $checkbox.checkbox('checkOnAll');
+  });
+  $('#checkoffall3').on('click', function() {
+    $checkbox.checkbox('checkOffAll');
+  });
+  $('#togglecheckall3').on('click', function() {
+    $checkbox.checkbox('toggleCheckAll');
+  });
+  $('#enableall3').on('click', function() {
+    $checkbox.checkbox('enableAll');
+  });
+  $('#disableall3').on('click', function() {
+    $checkbox.checkbox('disableAll');
+  });
+  $('#destroy3').on('click', function() {
+    $checkbox.checkbox('destroy');
+  });
 }());
 
 (function() {
-	var $radio = $('input[name="radio2"]').radio({
-		view: true
-	});
-	$('#enableall4').on('click', function() {
-		$radio.radio('enableAll');
-	});
-	$('#disableall4').on('click', function() {
-		$radio.radio('disableAll');
-	});
-	$('#destroy4').on('click', function() {
-		$radio.radio('destroy');
-	});
+  var $radio = $('input[name="radio"]').radio();
+  $('#enableall4').on('click', function() {
+    $radio.radio('enableAll');
+  });
+  $('#disableall4').on('click', function() {
+    $radio.radio('disableAll');
+  });
+  $('#destroy4').on('click', function() {
+    $radio.radio('destroy');
+  });
+}());
+
+(function() {
+  var $radio = $('input[name="radio2"]').radio({
+    view: true
+  });
+  $('#enableall5').on('click', function() {
+    $radio.radio('enableAll');
+  });
+  $('#disableall5').on('click', function() {
+    $radio.radio('disableAll');
+  });
+  $('#destroy5').on('click', function() {
+    $radio.radio('destroy');
+  });
+}());
+
+(function() {
+  var $radio = $('input[name="radio3"]').radio({
+    view: true,
+    label: true,
+    hideNextSibs: true
+  });
+  $('#enableall6').on('click', function() {
+    $radio.radio('enableAll');
+  });
+  $('#disableall6').on('click', function() {
+    $radio.radio('disableAll');
+  });
+  $('#destroy6').on('click', function() {
+    $radio.radio('destroy');
+  });
 }());
 
 }(jQuery));

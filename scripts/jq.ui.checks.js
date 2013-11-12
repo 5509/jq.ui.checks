@@ -1,13 +1,13 @@
 /*!
  * jq.ui.checks
  *
- * @version      0.42
+ * @version      0.5.0
  * @author       nori (norimania@gmail.com)
- * @copyright    5509 (http://5509.me/)
+ * @copyright    5509 (http://5509.hatenablog.com/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.ui.checks
  *
- * 2012-04-04 00:57
+ * 2013-11-11 11:59
  */
 (function($, window, document) {
 
@@ -40,11 +40,14 @@
 
     // names and types are based
     baseConf: {
-      view          : false,
-      uiClass       : 'ui_check',
-      labelClass    : 'ui_check_label',
-      checkedClass  : 'ui_checked',
-      disabledClass : 'ui_check_disabled'
+      view           : false,
+      label          : false,
+      hideNextSibs   : false,
+      uiClass        : 'ui_check',
+      uiLabeledClass : 'ui_labeled_check',
+      labelClass     : 'ui_check_label',
+      checkedClass   : 'ui_checked',
+      disabledClass  : 'ui_check_disabled'
     },
 
     init: function($elems, conf) {
@@ -55,10 +58,10 @@
       self.elemMaps = {};
 
       $.each($elems, function(i, elem) {
-        var check = self._matching(elem),
-          $check = check.$check,
-          $label = check.$label,
-          $view = check.$view;
+        var check = self._matching(elem);
+        var $check = check.$check;
+        var $label = check.$label;
+        var $view = check.$view;
 
         if ( $label ) {
           $label.addClass(self.conf.labelClass);
@@ -73,8 +76,14 @@
     },
 
     _view: function(check) {
-      var self = this,
-        $view = $('<span></span>').addClass(this.conf.uiClass);
+      var self = this;
+      var label = check.getAttribute('data-checkbox-label');
+      var $view = $('<span></span>').addClass(this.conf.uiClass);
+      if ( self.conf.label && label ) {
+        $view
+          .addClass(self.conf.uiLabeledClass)
+          .text(label);
+      }
       if ( check.disabled ) {
         $view.addClass(self.conf.disabledClass);
       }
@@ -85,16 +94,21 @@
     },
 
     _matching: function(check) {
-      var self = this,
-        id = check.id;
+      var self = this;
+      var id = check.id;
+      var $check = $(check);
       self.elemMaps[id] = {
         id: id,
-        $check: $(check),
+        $check: $check,
         $view: self.conf.view ? self._view(check) : undefined,
         $label: $('label[for=' + id + ']'),
+        $next: $check.next(),
         state: check.checked,
         disabled: check.disabled
       };
+      if ( self.conf.hideNextSibs ) {
+        self.elemMaps[id].$next.hide();
+      }
       return self.elemMaps[id];
     },
 
@@ -102,11 +116,11 @@
       var self = this;
       // binding events to all checkboxes
       $.each(self.elemMaps, function(key, val) {
-        var id = val.id,
-          $check = val.$check,
-          $label = val.$label,
-          $view = val.$view,
-          disabled = val.disabled;
+        var id = val.id;
+        var $check = val.$check;
+        var $label = val.$label;
+        var $view = val.$view;
+        var disabled = val.disabled;
 
         // binding events
         $check.bind({
@@ -146,9 +160,9 @@
     },
 
     _checkOn: function(id) {
-      var self = this,
-        map = self.elemMaps[id],
-        $check = map.$check;
+      var self = this;
+      var map = self.elemMaps[id];
+      var $check = map.$check;
 
       if ( map.disabled ) return;
       if ( self.conf.view ) map.$view.addClass(self.conf.checkedClass);
@@ -158,9 +172,9 @@
     },
 
     _checkOff: function(id) {
-      var self = this,
-        map = self.elemMaps[id],
-        $check = map.$check;
+      var self = this;
+      var map = self.elemMaps[id];
+      var $check = map.$check;
 
       if ( map.disabled ) return;
       if ( self.conf.view ) map.$view.removeClass(self.conf.checkedClass);
@@ -170,10 +184,10 @@
     },
 
     _enable: function(id) {
-      var self = this,
-        map = self.elemMaps[id],
-        $view = map.$view,
-        $check = map.$check;
+      var self = this;
+      var map = self.elemMaps[id];
+      var $view = map.$view;
+      var $check = map.$check;
 
       if ( self.conf.view ) $view.removeClass(self.conf.disabledClass);
       map.disabled = false;
@@ -182,10 +196,10 @@
     },
 
     _disable: function(id) {
-      var self = this,
-        map = self.elemMaps[id],
-        $view = map.$view,
-        $check = map.$check;
+      var self = this;
+      var map = self.elemMaps[id];
+      var $view = map.$view;
+      var $check = map.$check;
 
       if ( self.conf.view ) $view.addClass(self.conf.disabledClass);
       map.disabled = true;
@@ -237,20 +251,21 @@
     },
 
     destroy: function() {
-      var self = this,
-        ns = self.namespace.toLowerCase();
+      var self = this;
+      var ns = self.namespace.toLowerCase();
 
       self.$elems.removeData(ns);
       self.$elems.trigger('check:destroy');
       $.each(self.elemMaps, function(key, val) {
         if ( self.conf.view ) val.$view.remove();
+        if ( self.conf.hideNextSibs ) {
+          val.$next.show();
+        }
         val.$check.show().unbind([
           'click.check',
           '_check:toggle',
           '_check:on', '_check:off',
-          '_check:enable', '_check:disable',
-          'check:on', 'check:off',
-          'check:enable', 'check:disable'
+          '_check:enable', '_check:disable'
         ].join(' '));
       });
     }
@@ -292,15 +307,18 @@
   };
   rp = Radio.prototype;
   rp.baseConf = {
-    view: false,
-    uiClass: 'ui_radio',
-    labelClass: 'ui_radio_label',
-    checkedClass: 'ui_checked',
-    disabledClass: 'ui_radio_disabled'
+    view           : false,
+    label          : false,
+    hideNextSibs   : false,
+    uiClass        : 'ui_radio',
+    uiLabeledClass : 'ui_labeled_radio',
+    labelClass     : 'ui_radio_label',
+    checkedClass   : 'ui_checked',
+    disabledClass  : 'ui_radio_disabled'
   };
   rp._checkOn = function(id) {
-    var self = this,
-      map = self.elemMaps[id];
+    var self = this;
+    var map = self.elemMaps[id];
 
     $.each(self.elemMaps, function(key, val) {
       self._checkOff(val.id);
